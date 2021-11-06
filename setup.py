@@ -1,6 +1,7 @@
 from setuptools import setup, find_packages
 
 requires = [
+    'alembic',
     'boto',
     'pyramid',
     'pyramid_chameleon',
