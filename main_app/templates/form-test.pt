@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test Upload Form</title>
+</head>
+<body>
+<form action="/api/upload" method="post" accept-charset="utf-8"
+      enctype="multipart/form-data">
+
+    <label for="image">Image</label>
+    <input id="image" name="image" type="file" value="" />
+
+    <input type="submit" value="submit" />
+</form>
+</body>
+</html>
