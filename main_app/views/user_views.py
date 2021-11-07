@@ -7,7 +7,6 @@ from main_app.models import check_auth
 
 # Cadastro de novo Usuário
 @view_config(route_name='register',
-             request_method='POST',
              renderer='json',
              )
 def register_user(request):
@@ -24,12 +23,16 @@ def register_user(request):
         session.commit()
     except Exception as e:
         raise HTTPBadRequest(e.args)
-    return Response("%s Created" % user.name)
+    return Response("%s Created" % user.name, headerlist=[
+        ('Access-Control-Allow-Origin', '*'),
+        ('Access-Control-Allow-Methods', 'POST'),
+        ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
+        ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
+    ])
 
 
 # Login
 @view_config(route_name='login',
-             request_method='POST',
              renderer='json',
              )
 def login(request):
@@ -49,8 +52,14 @@ def login(request):
         user.clear_token()
         print(e.args)
 
-    return {"token": token,
-            "userid": uname}
+    return Response(
+        '{"token": "%s", "userid": "%s"}' % (token, uname),
+        headerlist=[
+            ('Access-Control-Allow-Origin', '*'),
+            ('Access-Control-Allow-Methods', 'POST'),
+            ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
+            ("Content-Type", "application/json; charset=utf-8"),
+        ])
 
 
 # Logout
@@ -59,6 +68,16 @@ def login(request):
 def logout(request):
     user = check_auth(request)
     if not user:
-        return HTTPOk()
+        return Response(HTTPOk(), headerlist=[
+            ('Access-Control-Allow-Origin', '*'),
+            ('Access-Control-Allow-Methods', 'POST'),
+            ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
+            ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
+        ])
     user.clear_token()
-    return HTTPOk()
+    return Response(HTTPOk(), headerlist=[
+        ('Access-Control-Allow-Origin', '*'),
+        ('Access-Control-Allow-Methods', 'POST'),
+        ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
+        ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
+    ])

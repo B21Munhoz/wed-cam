@@ -22,7 +22,12 @@ def create_event(request):
         session.commit()
     except Exception as e:
         raise HTTPBadRequest(e.args)
-    return {"invitation": event.invitation}
+    return Response('{"invitation": "%s"}' % event.invitation, headerlist=[
+        ('Access-Control-Allow-Origin', '*'),
+        ('Access-Control-Allow-Methods', 'POST'),
+        ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
+        ("Content-Type", "application/json; charset=utf-8"),
+    ])
 
 
 @view_config(route_name='view_guests_list',
