@@ -9,7 +9,7 @@ from main_app.models import check_auth
 @view_config(route_name='register',
              request_method='POST',
              renderer='json',
-             check_csrf=False)
+             )
 def register_user(request):
     session = request.db
     name = request.json_body['name']
@@ -31,7 +31,7 @@ def register_user(request):
 @view_config(route_name='login',
              request_method='POST',
              renderer='json',
-             check_csrf=False)
+             )
 def login(request):
     session = request.db
     username = request.json_body['username']
@@ -55,7 +55,7 @@ def login(request):
 
 # Logout
 @view_config(route_name='logout',
-             check_csrf=False)
+             )
 def logout(request):
     user = check_auth(request)
     if not user:

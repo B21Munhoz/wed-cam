@@ -11,7 +11,7 @@ from main_app.models import check_auth
 
 # Upload de Imagem
 @view_config(route_name='upload',
-             request_method='POST', check_csrf=False)
+             request_method='POST',)
 def upload_image(request):
     user = check_auth(request)
     if not user:
@@ -61,7 +61,7 @@ def upload_image(request):
 
 # Lista geral de Imagens. Somente o Anfitrião (dono do Casamento) pode ver
 @view_config(route_name='image_list',
-             request_method='POST', check_csrf=False)
+             request_method='POST',)
 def image_list(request):
     user = check_auth(request)
     if not user:
@@ -87,7 +87,7 @@ def image_list(request):
 
 # Lista de Imagens Aprovadas. Todos podem ver.
 @view_config(route_name='approved_image_list',
-             request_method='POST', check_csrf=False)
+             request_method='POST',)
 def approved_image_list(request):
     user = check_auth(request)
     if not user:
@@ -111,7 +111,7 @@ def approved_image_list(request):
 
 # Aprovar/Desaprovar Imagem
 @view_config(route_name='approve_disapprove_image',
-             request_method='POST', check_csrf=False)
+             request_method='POST',)
 def approve_disapprove_image(request):
     user = check_auth(request)
     if not user:

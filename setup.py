@@ -12,6 +12,7 @@ requires = [
     'psycopg2',
     'pyramid_tm',
     'pyramid_storage',
+    'pyramid_default_cors',
     'transaction',
     'waitress',
     'zope.sqlalchemy'

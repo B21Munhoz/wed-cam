@@ -58,7 +58,7 @@ venusian==3.0.0
 waitress==2.0.0
 wcwidth==0.2.5
 WebOb==1.8.7
--e git+https://github.com/B21Munhoz/wed-cam.git@8285bb77fe75dda5ab30580cdc31a8349a8ecff8#egg=wed_cam
+-e git+https://github.com/B21Munhoz/wed-cam.git@002339188c100def4e26d547d3dcc6eadef864b2#egg=wed_cam
 wired==0.3
 zipp==3.6.0
 zope.deprecation==4.4.0

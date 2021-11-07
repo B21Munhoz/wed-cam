@@ -2,6 +2,7 @@ from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker
 import zope.sqlalchemy
+import pyramid_default_cors
 
 
 def db(request):
@@ -35,6 +36,7 @@ def main(global_config, **settings):
     settings['sqlalchemy.url'] = "postgresql://alvaro:weddinginvite@localhost:5432/weddingdb"
     settings['tm.manager_hook'] = 'pyramid_tm.explicit_manager'
     config = Configurator(settings=settings)
+    config.include('pyramid_default_cors')
     config.include('pyramid_chameleon')
     config.include('.routes')
     config.include('pyramid_tm')
