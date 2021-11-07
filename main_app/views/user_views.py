@@ -22,10 +22,17 @@ def register_user(request):
     try:
         session.commit()
     except Exception as e:
-        raise HTTPBadRequest(e.args)
+        r = HTTPBadRequest(e.args, headerlist=[
+            ('Access-Control-Allow-Origin', '*'),
+            ('Access-Control-Allow-Methods', 'POST,GET,DELETE,PATCH,PUT,OPTIONS'),
+            ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
+            ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
+        ])
+        print(r.headers)
+        raise r
     r = Response("%s Created" % user.name, headerlist=[
         ('Access-Control-Allow-Origin', '*'),
-        ('Access-Control-Allow-Methods', 'POST'),
+        ('Access-Control-Allow-Methods', 'POST,GET,DELETE,PATCH,PUT,OPTIONS'),
         ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
         ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
     ])
