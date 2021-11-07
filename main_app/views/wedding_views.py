@@ -7,7 +7,8 @@ from main_app.models import check_auth
 
 @view_config(route_name='create_event',
              request_method='POST',
-             renderer='json'
+             renderer='json',
+             check_csrf=False
              )
 def create_event(request):
     user = check_auth(request)
@@ -27,7 +28,8 @@ def create_event(request):
 
 @view_config(route_name='view_guests_list',
              request_method='POST',
-             renderer='json'
+             renderer='json',
+             check_csrf=False
              )
 def view_guests_list(request):
     user = check_auth(request)
@@ -46,7 +48,8 @@ def view_guests_list(request):
 
 
 @view_config(route_name='add_guest',
-             request_method='POST'
+             request_method='POST',
+             check_csrf=False
              )
 def add_guest(request):
     user = check_auth(request)
@@ -68,6 +71,7 @@ def add_guest(request):
 
 @view_config(route_name='open_close_event',
              request_method='POST',
+             check_csrf=False
              )
 def open_close_event(request):
     user = check_auth(request)
@@ -88,7 +92,8 @@ def open_close_event(request):
 
 
 @view_config(route_name='get_hosted_events',
-             renderer='json')
+             renderer='json',
+             check_csrf=False)
 def get_hosted_events(request):
     user = check_auth(request)
     if not user:
@@ -107,7 +112,8 @@ def get_hosted_events(request):
 
 
 @view_config(route_name='get_guest_at',
-             renderer='json')
+             renderer='json',
+             check_csrf=False)
 def get_guest_at(request):
     user = check_auth(request)
     if not user:
