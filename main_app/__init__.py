@@ -2,9 +2,21 @@ from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker
 import zope.sqlalchemy
-import pyramid_default_cors
 from pyramid.request import Request
-from pyramid.request import Response
+from pyramid.events import NewRequest
+from pyramid.response import Response
+
+
+def add_cors_headers_response_callback(event):
+    def cors_headers(request, response):
+        response.headers.update({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST,GET,DELETE,PUT,OPTIONS',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization',
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Max-Age': '1728000',
+        })
+    event.request.add_response_callback(cors_headers)
 
 
 def request_factory(environ):
@@ -51,6 +63,7 @@ def main(global_config, **settings):
     settings['sqlalchemy.url'] = "postgresql://alvaro:weddinginvite@localhost:5432/weddingdb"
     settings['tm.manager_hook'] = 'pyramid_tm.explicit_manager'
     config = Configurator(settings=settings)
+    config.add_subscriber(add_cors_headers_response_callback, NewRequest)
     config.include('pyramid_default_cors')
     config.include('pyramid_chameleon')
     config.include('.routes')
