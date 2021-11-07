@@ -12,7 +12,7 @@ def add_cors_headers_response_callback(event):
         response.headers.update({
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST,GET,DELETE,PATCH,PUT,OPTIONS',
-        'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization',
+        'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Credentials': 'true',
         'Access-Control-Max-Age': '1728000',
         })
