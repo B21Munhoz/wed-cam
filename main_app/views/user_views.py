@@ -33,7 +33,7 @@ def register_user(request):
     r = Response("%s Created" % user.name, headerlist=[
         ('Access-Control-Allow-Origin', '*'),
         ('Access-Control-Allow-Methods', 'POST,GET,DELETE,PATCH,PUT,OPTIONS'),
-        ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
+        ('Access-Control-Allow-Headers', '*'),
         ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
     ])
     print(r.headers)
@@ -80,7 +80,7 @@ def logout(request):
         return Response(HTTPOk(), headerlist=[
             ('Access-Control-Allow-Origin', '*'),
             ('Access-Control-Allow-Methods', 'POST'),
-            ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
+            ('Access-Control-Allow-Headers', '*'),
             ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
         ])
     user.clear_token()
