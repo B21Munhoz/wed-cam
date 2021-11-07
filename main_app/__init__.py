@@ -10,7 +10,7 @@ from pyramid.response import Response
 def add_cors_headers_response_callback(event):
     def cors_headers(request, response):
         response.headers.update({
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': 'http://ec2-54-233-178-31.sa-east-1.compute.amazonaws.com/',
         'Access-Control-Allow-Methods': 'POST,GET,DELETE,PATCH,PUT,OPTIONS',
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Credentials': 'true',

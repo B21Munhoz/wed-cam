@@ -25,7 +25,6 @@ def register_user(request):
         r = HTTPBadRequest(e.args, headerlist=[
             ('Access-Control-Allow-Origin', '*'),
             ('Access-Control-Allow-Methods', 'POST,GET,DELETE,PATCH,PUT,OPTIONS'),
-            ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
             ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
         ])
         print(r.headers)

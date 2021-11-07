@@ -25,7 +25,6 @@ def create_event(request):
     return Response('{"invitation": "%s"}' % event.invitation, headerlist=[
         ('Access-Control-Allow-Origin', '*'),
         ('Access-Control-Allow-Methods', 'POST'),
-        ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
         ("Content-Type", "application/json; charset=utf-8"),
     ])
 
