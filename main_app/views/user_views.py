@@ -68,7 +68,7 @@ def logout(request):
     user = check_auth(request)
     if user:
         user.clear_token()
-    r = Response(HTTPOk(), headerlist=[
+    r = HTTPOk("OK", headerlist=[
         ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
     ])
     print(r.headers)
