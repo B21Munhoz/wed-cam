@@ -3,6 +3,21 @@ from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker
 import zope.sqlalchemy
 import pyramid_default_cors
+from pyramid.request import Request
+from pyramid.request import Response
+
+
+def request_factory(environ):
+    request = Request(environ)
+    if request.is_xhr:
+        request.response = Response()
+        request.response.headerlist = []
+        request.response.headerlist.extend(
+            (
+                ('Access-Control-Allow-Origin', '*'),
+            )
+        )
+    return request
 
 
 def db(request):
@@ -44,6 +59,7 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, prefix='sqlalchemy.')
     config.registry.dbmaker = sessionmaker(bind=engine)
     config.add_request_method(db, reify=True)
+    config.set_request_factory(request_factory)
 
     config.scan()
     return config.make_wsgi_app()
