@@ -30,9 +30,9 @@ def register_user(request):
         print(r.headers)
         raise r
     r = Response("%s Created" % user.name, headerlist=[
-        ('Access-Control-Allow-Origin', '*'),
-        ('Access-Control-Allow-Methods', 'POST,GET,DELETE,PATCH,PUT,OPTIONS'),
-        ('Access-Control-Allow-Headers', '*'),
+        # ('Access-Control-Allow-Origin', '*'),
+        # ('Access-Control-Allow-Methods', 'POST,GET,DELETE,PATCH,PUT,OPTIONS'),
+        # ('Access-Control-Allow-Headers', '*'),
         ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
     ])
     print(r.headers)
