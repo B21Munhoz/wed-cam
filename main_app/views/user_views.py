@@ -23,16 +23,11 @@ def register_user(request):
         session.commit()
     except Exception as e:
         r = HTTPBadRequest(e.args, headerlist=[
-            ('Access-Control-Allow-Origin', '*'),
-            ('Access-Control-Allow-Methods', 'POST,GET,DELETE,PATCH,PUT,OPTIONS'),
             ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
         ])
         print(r.headers)
         raise r
     r = Response("%s Created" % user.name, headerlist=[
-        # ('Access-Control-Allow-Origin', '*'),
-        # ('Access-Control-Allow-Methods', 'POST,GET,DELETE,PATCH,PUT,OPTIONS'),
-        # ('Access-Control-Allow-Headers', '*'),
         ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
     ])
     print(r.headers)
@@ -59,15 +54,11 @@ def login(request):
     except Exception as e:
         user.clear_token()
         print(e.args)
-
-    return Response(
-        '{"token": "%s", "userid": "%s"}' % (token, uname),
-        headerlist=[
-            ('Access-Control-Allow-Origin', '*'),
-            ('Access-Control-Allow-Methods', 'POST'),
-            ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
-            ("Content-Type", "application/json; charset=utf-8"),
-        ])
+    r = Response('{"token": "%s", "userid": "%s"}' % (token, uname), headerlist=[
+        ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
+    ])
+    print(r.headers)
+    return r
 
 
 # Logout
@@ -75,17 +66,10 @@ def login(request):
              )
 def logout(request):
     user = check_auth(request)
-    if not user:
-        return Response(HTTPOk(), headerlist=[
-            ('Access-Control-Allow-Origin', '*'),
-            ('Access-Control-Allow-Methods', 'POST'),
-            ('Access-Control-Allow-Headers', '*'),
-            ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
-        ])
-    user.clear_token()
-    return Response(HTTPOk(), headerlist=[
-        ('Access-Control-Allow-Origin', '*'),
-        ('Access-Control-Allow-Methods', 'POST'),
-        ('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization'),
+    if user:
+        user.clear_token()
+    r = Response(HTTPOk(), headerlist=[
         ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
     ])
+    print(r.headers)
+    return r
