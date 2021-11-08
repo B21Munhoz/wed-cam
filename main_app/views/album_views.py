@@ -68,7 +68,9 @@ def upload_image(request):
 
 # Lista geral de Imagens. Somente o Anfitrião (dono do Casamento) pode ver
 @view_config(route_name='image_list',
-             request_method='POST',)
+             request_method='POST',
+             renderer='json'
+             )
 def image_list(request):
     user = check_auth(request)
     if not user:
@@ -84,6 +86,7 @@ def image_list(request):
     for p in photos:
         photo_list.append(
             {
+                "photo_id": p.id,
                 "url": p.url,
                 "author": p.author.name,
                 "approved": p.approved
@@ -109,6 +112,7 @@ def approved_image_list(request):
         if p.approved:
             photo_list.append(
                 {
+                    "photo_id": p.id,
                     "url": p.url,
                     "author": p.author.name,
                 }
