@@ -38,12 +38,16 @@ Pygments==2.10.0
 pyramid==2.0
 pyramid-boto3==0.3
 pyramid-chameleon==0.3
+pyramid-debugtoolbar==4.9
+pyramid-default-cors==0.2.1
 pyramid-ipython==0.2
+pyramid-mako==1.1.0
 pyramid-services==2.2
 pyramid-storage==1.0.0
 pyramid-tm==2.4
 python-dateutil==2.8.2
 python-slugify==5.0.2
+repoze.lru==0.7
 requests==2.26.0
 s3transfer==0.5.0
 six==1.16.0
@@ -58,7 +62,7 @@ venusian==3.0.0
 waitress==2.0.0
 wcwidth==0.2.5
 WebOb==1.8.7
--e git+https://github.com/B21Munhoz/wed-cam.git@002339188c100def4e26d547d3dcc6eadef864b2#egg=wed_cam
+-e git+https://github.com/B21Munhoz/wed-cam.git@d397f20808f8f6495edb3a9325017c8b31876924#egg=wed_cam
 wired==0.3
 zipp==3.6.0
 zope.deprecation==4.4.0

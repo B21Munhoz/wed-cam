@@ -13,6 +13,7 @@ requires = [
     'pyramid_tm',
     'pyramid_storage',
     'pyramid_default_cors',
+    'pyramid_debugtoolbar',
     'transaction',
     'waitress',
     'zope.sqlalchemy'

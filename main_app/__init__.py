@@ -63,6 +63,7 @@ def main(global_config, **settings):
     settings['tm.manager_hook'] = 'pyramid_tm.explicit_manager'
     config = Configurator(settings=settings)
     config.add_subscriber(add_cors_headers_response_callback, NewRequest)
+    config.include('pyramid_debugtoolbar')
     config.include('pyramid_default_cors')
     config.include('pyramid_chameleon')
     config.include('.routes')
