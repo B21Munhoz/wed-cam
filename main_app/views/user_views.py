@@ -25,12 +25,10 @@ def register_user(request):
         r = HTTPBadRequest(e.args, headerlist=[
             ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
         ])
-        print(r.headers)
         raise r
     r = Response("%s Created" % user.name, headerlist=[
         ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
     ])
-    print(r.headers)
     return r
 
 
@@ -57,7 +55,6 @@ def login(request):
     r = Response('{"token": "%s", "userid": "%s"}' % (token, uname), headerlist=[
         ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
     ])
-    print(r.headers)
     return r
 
 
@@ -71,5 +68,4 @@ def logout(request):
     r = HTTPOk("OK", headerlist=[
         ("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"),
     ])
-    print(r.headers)
     return r
