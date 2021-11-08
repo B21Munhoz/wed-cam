@@ -3,7 +3,7 @@ from pyramid.view import view_config
 
 # View de teste utilizando um template de formulário
 @view_config(route_name='upload_test_form', renderer='templates/form-test.pt',)
-def upload_test_form():
+def upload_test_form(context, request):
     return {}
 
 
