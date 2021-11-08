@@ -76,7 +76,7 @@ def image_list(request):
     if not user:
         raise HTTPUnauthorized()
     session = request.db
-    event = session.query(Event).filter(Event.id == request.POST['event_id']).first()
+    event = session.query(Event).filter(Event.id == request.json_body['event_id']).first()
     if not event:
         raise HTTPBadRequest()
     if event.host != user:
@@ -97,13 +97,14 @@ def image_list(request):
 
 # Lista de Imagens Aprovadas. Todos podem ver.
 @view_config(route_name='approved_image_list',
-             request_method='POST',)
+             request_method='POST',
+             renderer='json')
 def approved_image_list(request):
     user = check_auth(request)
     if not user:
         raise HTTPUnauthorized()
     session = request.db
-    event = session.query(Event).filter(Event.id == request.POST['event_id']).first()
+    event = session.query(Event).filter(Event.id == request.json_body['event_id']).first()
     if not event:
         raise HTTPBadRequest()
     photos = event.album.photos
@@ -122,18 +123,19 @@ def approved_image_list(request):
 
 # Aprovar/Desaprovar Imagem
 @view_config(route_name='approve_disapprove_image',
-             request_method='POST',)
+             request_method='POST',
+             renderer='json')
 def approve_disapprove_image(request):
     user = check_auth(request)
     if not user:
         raise HTTPUnauthorized()
     session = request.db
-    event = session.query(Event).filter(Event.id == request.POST['event_id']).first()
+    event = session.query(Event).filter(Event.id == request.json_body['event_id']).first()
     if not event:
         raise HTTPBadRequest()
     if event.host != user:
         raise HTTPUnauthorized()
-    photo = session.query(Photo).filter(Photo.id == request.POST['photo_id']).first()
+    photo = session.query(Photo).filter(Photo.id == request.json_body['photo_id']).first()
     if not photo:
         raise HTTPBadRequest()
     photo.approve_disapprove()
