@@ -4,7 +4,7 @@ def includeme(config):
     config.add_route('login', '/api/login')
     config.add_route('logout', '/api/logout')
     # Album Routes
-    config.add_route('upload', '/api/upload')
+    config.add_route('upload', '/api/upload/{event_id}')
     config.add_route('approved_image_list', '/api/approved_image_list')
     config.add_route('image_list', '/api/image_list')
     config.add_route('approve_disapprove_image', '/api/approve_disapprove_image')

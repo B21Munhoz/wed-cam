@@ -17,8 +17,9 @@ def upload_image(request):
     if not user:
         raise HTTPUnauthorized()
     try:
+        # print(user.token)
         # input_file recebe o arquivo da minha POST request.
-        input_file = request['image'].file
+        input_file = request.POST['image'].file
         # gero um novo nome com o uuid, para que o arquivo tenha um nome único
         file_name = uuid.uuid4()
         file_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
@@ -37,7 +38,7 @@ def upload_image(request):
         conn = S3Connection('AKIAQRVSZSONUQDINTQ6', '1WO6fELhpH73dl9523C8rjIBVJtzppx/Km2vjLN0')
         bucket = conn.get_bucket('wed-cam')
         print("Conectou")
-        location = bucket.get_bucket_location(Bucket='wed-cam')['LocationConstraint']
+        location = bucket.get_location()
         print(location)
         k = Key(bucket)
         k.key = '%s.jpg' % file_name
@@ -46,8 +47,10 @@ def upload_image(request):
         # Cria o objeto que armazena as informações da Foto
         session = request.db
         photo = Photo()
+        event = session.query(Event).filter(Event.id == request.matchdict['event_id']).first()
+        photo.album = event.album
+        print(request.matchdict['event_id'])
         photo.author = user
-        photo.album = session.query(Album).filter(Album.id == request.POST['album_id']).first()
         photo.file = '%s.jpg' % file_name
         photo.url = "https://s3-%s.amazonaws.com/%s/%s" % (location, 'wed-cam', photo.file)
         session.add(photo)
