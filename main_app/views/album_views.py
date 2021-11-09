@@ -34,22 +34,21 @@ def upload_image(request):
         os.rename(temp_file_path, file_path)
 
         # Agora faço o upload para o meu bucket da S3. Mudar as credenciais para uma config file.
-        print("Debug: Tentativa de conectar no bucket")
+
         conn = S3Connection('AKIAQRVSZSONUQDINTQ6', '1WO6fELhpH73dl9523C8rjIBVJtzppx/Km2vjLN0')
         bucket = conn.get_bucket('wed-cam')
-        print("Conectou")
+
         location = bucket.get_location()
-        print(location)
         k = Key(bucket)
         k.key = '%s.jpg' % file_name
         k.set_contents_from_filename(file_path)
-        print("Setou a imagem na S#")
+
         # Cria o objeto que armazena as informações da Foto
         session = request.db
         photo = Photo()
         event = session.query(Event).filter(Event.id == request.matchdict['event_id']).first()
         photo.album = event.album
-        print(request.matchdict['event_id'])
+
         photo.author = user
         photo.file = '%s.jpg' % file_name
         photo.url = "https://s3-%s.amazonaws.com/%s/%s" % (location, 'wed-cam', photo.file)
